@@ -8,6 +8,10 @@ from kiteconnect import KiteConnect
 kite = KiteConnect(api_key="<YOUR-API-KEY>", debug=True)
 redis_con = redis.Redis(host="<REDIS-HOST>", port=6379, db=11, charset="utf-8", decode_responses=True, password="<PASSWORD>")
 
+# def send_message_bot(chat_id, text):
+# 	url = 'https://api.telegram.org/<YOUR-BOT-TOKEN>/sendMessage'
+# 	r = requests.post(url, {'chat_id': chat_id, 'text': text}).json()
+
 def set_token(request_token):
 
     data = kite.generate_session(request_token, api_secret="<ZERODHA-API-SECRET>")
@@ -30,6 +34,7 @@ def place_order(received_data, txn_type="BUY"):
         order_id = kite.place_order(tradingsymbol=tradingsymbol, exchange="NSE", transaction_type=txn_type, quantity=quantity,
         order_type="LIMIT", price=execute_at, trigger_price=sl, product="MIS", validity="DAY", disclosed_quantity=0, 
         squareoff=0, stoploss=0, trailing_stoploss=0, variety='amo')
+        # send_message_bot(<YOUR-CHAT-ID>, "{} Order placed for {} at {}, SL: {}, TG: {}".format(txn_type, tradingsymbol, execute_at, sl, tg))
 
 def lambda_handler(event, context):
 
