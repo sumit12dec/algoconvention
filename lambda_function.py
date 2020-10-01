@@ -1,7 +1,5 @@
 import json
-import os
 import urllib
-from datetime import datetime as dt
 
 import requests
 import redis
